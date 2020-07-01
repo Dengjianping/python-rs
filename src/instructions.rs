@@ -1,7 +1,8 @@
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Opcode {
     HLT,
-    IGL
+    IGL,
+    LOAD,
 }
 
 impl From<u8> for Opcode {
