@@ -36,6 +36,28 @@ impl VM {
         result 
     }
 
+    pub fn run_once(&mut self) {
+        self.execute_instruction();
+    }
+
+    fn execute_instruction(&mut self) -> bool {
+        if self.pc >= self.program.len() {
+            return false
+        }
+        match self.decode_opcode() {
+            Opcode::LOAD => {
+                let register = self.next_8_bits() as usize;
+                let number = self.next_16_bits() as u32;
+                self.registers[register] = number as i32;
+            },
+            Opcode::HLT => {
+                println!("HLT encountered");
+                false
+            }
+        }
+        true
+    }
+
     pub fn run(&mut self) {
         loop {
             if self.pc >= self.program.len() {
